@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+>
+  <!-- Creating table for User entity -->
+  <changeSet id="createUserTable" author="author">
+    <createTable tableName="tb_user">
+      <column name="id" type="uuid">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)"/>
+      <column name="email" type="varchar(255)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="password" type="varchar(255)"/>
+      <column name="created_by" type="varchar(50)"/>
+      <column name="created_date" type="datetime"/>
+      <column name="last_modified_by" type="varchar(50)"/>
+      <column name="last_modified_date" type="datetime"/>
+      <column name="deleted" type="boolean"/>
+    </createTable>
+  </changeSet>
+
+  <!-- Creating table for Transaction entity -->
+  <changeSet id="createTransactionTable" author="author">
+    <createTable tableName="tb_transaction">
+      <column name="id" type="uuid">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)"/>
+      <column name="value" type="decimal(19,2)"/>
+      <column name="date" type="datetime"/>
+      <column name="type" type="varchar(50)"/>
+      <column name="user_id" type="uuid"/>
+      <column name="bank_account_id" type="uuid"/>
+      <column name="category_id" type="uuid"/>
+      <column name="created_by" type="varchar(50)"/>
+      <column name="created_date" type="datetime"/>
+      <column name="last_modified_by" type="varchar(50)"/>
+      <column name="last_modified_date" type="datetime"/>
+      <column name="deleted" type="boolean"/>
+    </createTable>
+  </changeSet>
+
+  <!-- Creating table for Category entity -->
+  <changeSet id="createCategoryTable" author="author">
+    <createTable tableName="tb_category">
+      <column name="id" type="uuid">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)"/>
+      <column name="icon" type="varchar(255)"/>
+      <column name="type" type="varchar(50)"/>
+      <column name="user_id" type="uuid"/>
+      <column name="created_by" type="varchar(50)"/>
+      <column name="created_date" type="datetime"/>
+      <column name="last_modified_by" type="varchar(50)"/>
+      <column name="last_modified_date" type="datetime"/>
+      <column name="deleted" type="boolean"/>
+    </createTable>
+  </changeSet>
+
+  <!-- Creating table for BankAccount entity -->
+  <changeSet id="createBankAccountTable" author="author">
+    <createTable tableName="tb_bank_account">
+      <column name="id" type="uuid">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)"/>
+      <column name="initial_balance" type="decimal(19,2)"/>
+      <column name="color" type="varchar(255)"/>
+      <column name="type" type="varchar(50)"/>
+      <column name="user_id" type="uuid"/>
+      <column name="created_by" type="varchar(50)"/>
+      <column name="created_date" type="datetime"/>
+      <column name="last_modified_by" type="varchar(50)"/>
+      <column name="last_modified_date" type="datetime"/>
+      <column name="deleted" type="boolean"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

@@ -22,28 +22,45 @@ public class Transaction {
   @Id
   @GeneratedValue
   private UUID id;
-  @ManyToOne(fetch = FetchType.LAZY)
-  private User user;
-  @ManyToOne(fetch = FetchType.LAZY)
-  private BankAccount bankAccount;
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Category category;
   private String name;
   private BigDecimal value;
   private LocalDateTime date;
   @Enumerated(EnumType.STRING)
   private TransactionType type;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private BankAccount bankAccount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Category category;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Transaction that = (Transaction) o;
-    return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(bankAccount, that.bankAccount) && Objects.equals(category, that.category) && Objects.equals(name, that.name) && Objects.equals(value, that.value) && Objects.equals(date, that.date) && type == that.type;
+    return
+      Objects.equals(id, that.id) &&
+        Objects.equals(user, that.user) &&
+        Objects.equals(bankAccount, that.bankAccount) &&
+        Objects.equals(category, that.category) &&
+        Objects.equals(name, that.name) &&
+        Objects.equals(value, that.value) &&
+        Objects.equals(date, that.date) &&
+        type == that.type;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, user, bankAccount, category, name, value, date, type);
+    return Objects.hash(id,
+      user,
+      bankAccount,
+      category,
+      name,
+      value,
+      date,
+      type
+    );
   }
 }
