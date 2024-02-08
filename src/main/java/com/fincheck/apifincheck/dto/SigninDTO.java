@@ -14,6 +14,7 @@ public class SigninDTO {
   @NotBlank(message = "Email is required")
   @Email
   private String email;
+
   @NotBlank(message = "Password is required")
   @Length(min = 8, max = 255, message = "Email length is outside the range of 8 to 255")
   private String password;

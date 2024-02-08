@@ -3,6 +3,7 @@ package com.fincheck.apifincheck.service.implementation;
 import com.fincheck.apifincheck.configuration.security.jwt.JWTService;
 import com.fincheck.apifincheck.dto.SigninDTO;
 import com.fincheck.apifincheck.dto.SignupDTO;
+import com.fincheck.apifincheck.dto.TokenResponseDTO;
 import com.fincheck.apifincheck.model.Category;
 import com.fincheck.apifincheck.model.TransactionType;
 import com.fincheck.apifincheck.model.User;
@@ -23,7 +24,7 @@ public class AuthServiceImp implements AuthService {
   private final JWTService jwtService;
 
   @Override
-  public String signup(SignupDTO signUpDTO) {
+  public TokenResponseDTO signup(SignupDTO signUpDTO) {
     boolean emailTaken = userRepository.existsByEmail(signUpDTO.getEmail());
 
     if (emailTaken) {
@@ -58,11 +59,13 @@ public class AuthServiceImp implements AuthService {
 
     User userSaved = userRepository.save(user);
 
-    return jwtService.generateToken(userSaved);
+    String accessToken = jwtService.generateToken(userSaved);
+
+    return new TokenResponseDTO(accessToken);
   }
 
   @Override
-  public String signin(SigninDTO signinDTO) {
+  public TokenResponseDTO signin(SigninDTO signinDTO) {
     User user =
       userRepository
         .findByEmail(signinDTO.getEmail())
@@ -74,6 +77,8 @@ public class AuthServiceImp implements AuthService {
       throw new RuntimeException("Invalid credentials");
     }
 
-    return jwtService.generateToken(user);
+    String accessToken = jwtService.generateToken(user);
+
+    return new TokenResponseDTO(accessToken);
   }
 }

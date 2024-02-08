@@ -2,6 +2,7 @@ package com.fincheck.apifincheck.controller;
 
 import com.fincheck.apifincheck.dto.SigninDTO;
 import com.fincheck.apifincheck.dto.SignupDTO;
+import com.fincheck.apifincheck.dto.TokenResponseDTO;
 import com.fincheck.apifincheck.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +19,15 @@ public class AuthController {
   private final AuthService authService;
 
   @PostMapping("/sign-up")
-  public ResponseEntity<String> signup(@RequestBody @Valid SignupDTO signupDTO) {
-    String accessToken = authService.signup(signupDTO);
+  public ResponseEntity<TokenResponseDTO> signup(@RequestBody @Valid SignupDTO signupDTO) {
+    TokenResponseDTO accessToken = authService.signup(signupDTO);
 
     return ResponseEntity.ok().body(accessToken);
   }
 
   @PostMapping("/sign-in")
-  public ResponseEntity<String> signin(@RequestBody @Valid SigninDTO signinDTO){
-    String accessToken = authService.signin(signinDTO);
+  public ResponseEntity<TokenResponseDTO> signin(@RequestBody @Valid SigninDTO signinDTO){
+    TokenResponseDTO accessToken = authService.signin(signinDTO);
 
     return ResponseEntity.ok().body(accessToken);
   }

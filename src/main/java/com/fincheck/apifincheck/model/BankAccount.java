@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "tb_bank_account")
-public class BankAccount {
+public class BankAccount extends AbstractAuditingEntity {
   @Id
   @GeneratedValue
   private UUID id;
