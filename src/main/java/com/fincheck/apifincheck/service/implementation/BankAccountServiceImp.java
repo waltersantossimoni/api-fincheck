@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BankAccountServiceImp implements BankAccountService {
+
   private final BankAccountRepository bankAccountRepository;
   private final UserRepository userRepository;
   private final ModelMapper modelMapper;
@@ -38,7 +39,9 @@ public class BankAccountServiceImp implements BankAccountService {
 
   @Override
   public List<BankAccountDTO> findAllByUserId(UUID userId) {
-    List<BankAccount> bankAccounts = bankAccountRepository.findAllByUserId(userId);
+    List<BankAccount> bankAccounts = bankAccountRepository
+      .findAllByUserId(userId)
+      .orElseThrow(() -> new RuntimeException("No such bank account."));
 
     return bankAccounts
       .stream()
