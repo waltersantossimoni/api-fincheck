@@ -1,16 +1,21 @@
 package com.fincheck.apifincheck.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +24,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_user")
 public class User extends AbstractAuditingEntity implements AuthenticatedUser {
+
   @Id
   @GeneratedValue
   private UUID id;
@@ -66,18 +72,24 @@ public class User extends AbstractAuditingEntity implements AuthenticatedUser {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    if (!super.equals(o)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
     User user = (User) o;
     return
       Objects.equals(id, user.id) &&
-      Objects.equals(name, user.name) &&
-      Objects.equals(email, user.email) &&
-      Objects.equals(password, user.password) &&
-      Objects.equals(bankAccounts, user.bankAccounts) &&
-      Objects.equals(categories, user.categories) &&
-      Objects.equals(transactions, user.transactions);
+        Objects.equals(name, user.name) &&
+        Objects.equals(email, user.email) &&
+        Objects.equals(password, user.password) &&
+        Objects.equals(bankAccounts, user.bankAccounts) &&
+        Objects.equals(categories, user.categories) &&
+        Objects.equals(transactions, user.transactions);
   }
 
   @Override
