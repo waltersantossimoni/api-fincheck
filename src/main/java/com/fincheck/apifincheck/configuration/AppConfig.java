@@ -1,7 +1,8 @@
 package com.fincheck.apifincheck.configuration;
 
 import com.fincheck.apifincheck.repository.UserRepository;
-import java.math.BigDecimal;
+import java.time.Clock;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -11,12 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.Clock;
-import java.util.UUID;
-
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
+
   private final UserRepository userRepository;
 
   @Bean
@@ -41,7 +40,8 @@ public class AppConfig {
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return username -> userRepository.findById(UUID.fromString(username))
+    return username -> userRepository
+      .findById(UUID.fromString(username))
       .orElseThrow(() -> new RuntimeException("No such user"));
   }
 }
